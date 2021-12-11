@@ -49,7 +49,7 @@ final class MagicSquare {
                 currentSquare[counter] = 1;
                 square[index] = counter + 1;
 
-                if (index < NINE - 1) {
+                if (index < EIGHT) {
                     genSquare(square, currentSquare, index + 1);
 
                 // If the current magic square is valid, then it will print it.
