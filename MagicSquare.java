@@ -44,7 +44,7 @@ final class MagicSquare {
     public static void genSquare(final int[] square, final int[] currentSquare,
         final int index) {
         for (int counter = 0; counter < NINE; counter++) {
-            
+
             if (currentSquare[counter] == 0) {
                 currentSquare[counter] = 1;
                 square[index] = counter + 1;
