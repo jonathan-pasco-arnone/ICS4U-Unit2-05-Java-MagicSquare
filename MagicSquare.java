@@ -7,8 +7,8 @@
 * @since   2021-12-10
 */
 
-final class MagicNumber {
-    private MagicNumber() {
+final class MagicSquare {
+    private MagicSquare() {
         // Prevent instantiation
         // Optional: throw an exception e.g. AssertionError
         // if this ever *is* called
@@ -32,31 +32,33 @@ final class MagicNumber {
     public static final int NINE = 9;
     /** The maximum number for magicNumbers. */
     public static final int MAGICNUM = 15;
-    public static int done = 0;
 
 
+    /**
+    * Generates all possible magic squares.
+    *
+    * @param square the current square
+    * @param currentSquare an extra array.
+    * @param index the index.
+    * */
+    public static void genSquare(final int[] square, final int[] currentSquare,
+        final int index) {
+        for (int counter = 0; counter < NINE; counter++) {
+            
+            if (currentSquare[counter] == 0) {
+                currentSquare[counter] = 1;
+                square[index] = counter + 1;
 
-    public static void genSquare(final int[] magicSquare, final int nextNumber) {
-        // generate the magic sqaure
-        final int theNumber = nextNumber + 1;
-        final String theNumberStr = Integer.toString(theNumber);
-        int[] theNumberArray = new int[NINE];
+                if (index < NINE - 1) {
+                    genSquare(square, currentSquare, index + 1);
 
-        // First, make the new number
-        for (int counterOne = 0; counterOne < NINE; counterOne++) {
-            theNumberArray[counterOne] =  Character.getNumericValue(theNumberStr.charAt(counterOne));
+                // If the current magic square is valid, then it will print it.
+                } else if (isMagic(square)) {
+                    printMagicSquare(square);
+                }
+                currentSquare[counter] = 0;
+            }
         }
-        for (int counterFour = 0; counterFour < NINE; counterFour++) {
-            magicSquare[counterFour] = theNumberArray[counterFour];
-        }
-
-        final boolean result = isMagic(magicSquare);
-
-        if (result) {
-            printMagicSquare(magicSquare);
-        }
-        genSquare(magicSquare, theNumber);
-        
     }
 
 
@@ -95,10 +97,10 @@ final class MagicNumber {
 
     public static void main(final String[] args) {
         // main stub, get user input here
-        int[] magicSquare = {1, 1, 1, 1, 1, 1, 1, 1, 1};
+        int[] magicSquare = {1, 2, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE};
+        final int[] extraArray = {0, 0, 0, 0, 0, 0, 0, 0, 0};
         System.out.println("\n");
         System.out.println("All Possible Magic Squares (3x3):\n");
-        // The 111111110 represents all 9 slots of the square
-        genSquare(magicSquare, 111111110);
+        genSquare(magicSquare, extraArray, 0);
     }
 }
